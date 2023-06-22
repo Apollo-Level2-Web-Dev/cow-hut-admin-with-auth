@@ -1,7 +1,22 @@
 # Cow Hut Admin With Auth
+### Create Private Repo with this [link](https://classroom.github.com/a/7zzbPsy8)
+[https://classroom.github.com/a/7zzbPsy8](https://classroom.github.com/a/7zzbPsy8)
+
+<hr>
 
 ## Main Part
 ### Create an Admin Model 
+
+### How to start:
+You need to reuse your previous assignment 3 for starting the assignment.
+
+Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. 
+Command  rm -rf .git
+
+Option 2: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal
+Command  rm -rf .git
+
+Option 3: Clone assignment-3 from github private repo by going to the assignment-3 link and then clone that repo. use command line to change the `git remote add origin [your repo link]`. To check you can use `git remote -v`
 
 #### Admin Model Sample :
 - _id
@@ -290,18 +305,7 @@ Response Sample Pattern:
    #### My Profile 
    - api/v1/users/my-profile (GET)  → Can be accessed only by the **` specific user (buyer, seller, admin) `** of the profile
    - api/v1/users/my-profile (PATCH) → Can be accessed only by the **` specific user (buyer, seller, admin) `** of the profile
-
-
-### How to start:
-You need to reuse your previous assignment 3 for starting the assignment.
-
-Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. 
-Command  rm -rf .git
-
-Option 2: Download your assignment-3 as a zipped folder repository from GitHub.  
-
-option 3: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal
-Command  rm -rf .git
+ 
 
 ### Deadline:
 - 60 Marks 11 Days ( Till 3rd July, Monday 11.59 PM  ) 
