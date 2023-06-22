@@ -1,1 +1,365 @@
-# cow-hut-admin-with-auth
+# Cow Hut Admin With Auth
+
+## Main Part
+### Create an Admin Model 
+
+#### Admin Model Sample :
+- _id
+- phoneNumber
+- role   → enum  → ['admin']    
+- password 
+- name	
+   - firstName
+   - lastName
+- address
+- createdAt
+- updatedAt
+
+#### Admin Routes :
+
+Route: /api/v1/admins/create-admin (POST)
+
+Request body: 
+ ```json
+ {
+  "password":"amiadminbujheshunekothakoiyo",
+  "role": "admin",
+   "name":{
+      "firstName": "Mr. Admin"
+      "lastName": "Bhai"
+    },
+  "phoneNumber":"01711111111",
+  "address": "Uganda",
+}
+```
+Response: The newly created admin object. ( Do not send the password in response )
+Response Sample Pattern:
+
+```json
+{
+    "success": true, 
+    "statusCode":200,
+    "message": "User's information retrieved successfully",
+    "data":  {
+        "_id":"ObjectId(“6473c6a50c56d0d40b9bb6a3)",  
+        "role": "admin",
+        "name":{
+           "firstName": "Mr. Admin"
+           "lastName": "Bhai"
+         },
+          "phoneNumber":"01711111111",
+          "address": "Uganda",
+         }
+     }
+
+```
+
+
+## Implement Custom Authentication using bcrypt and JWT
+
+### Create a new User 
+
+All passwords for users (including admins, buyers, and sellers) must be hashed using bcrypt.
+
+
+### Login User
+
+To log in, users must provide their phone number and password. The phone number must be unique in the database. If the login is successful, an access token will be sent in the response and a refresh token will be set in the browser cookie. The user's _id and role will both be included in the tokens.
+
+##### Here is a more detailed explanation of each step:
+
+- The user enters their phone number and password into the login form.
+- The server validates the phone number and password.
+- If the login is successful, the server generates an access token and a refresh token.
+- The access token is sent in the response to the user.
+- The refresh token is set in the browser cookie.
+- The user's _id and role are included in both the access token and the refresh token.
+- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to generate a new access token if --the old one expires. The _id and role are used to identify the user and their permissions.
+
+Route:  /api/v1/auth/login (POST)
+Request body:
+ ```json
+ {
+  "phoneNumber":"01711111111",
+  "password":"abrakadabra",
+}
+```
+ 
+ Response: The created access token for the user.
+ 
+ Response Sample Pattern:
+```json
+
+{
+    "success": true, 
+    "statusCode":200,
+    "message": "User logged in successfully",
+    "data": {
+       "accessToken":  "eyJhbGciOiJIUzI1NiICJ9.eyJ1c2V4NzIzMTcxNCwiZXhwIjoxNjg3MzE4MTE0fQ.Q7j8vtY9r1JeDK_zR6bYInlY", 
+       }
+  }
+```
+
+### You need to implement an authentication middleware to verify the user's token and role before granting access to the following routes.
+
+The authentication middleware will check the user's token and role against the database. If the token is valid and the user has the correct role, the middleware will allow the request to proceed. Otherwise, the middleware will deny the request and return an error.
+
+  #### User
+  
+   - api/v1/users (GET) → Can only be accessed by admin
+   - api/v1/users/:id (Single GET) → Can only be accessed by admin
+   - api/v1/users/:id (PATCH) → Can only be accessed by admin
+   - api/v1/users/:id (DELETE) → Can only be accessed  by admin
+     
+   #### Cows
+   
+   - api/v1/cows (POST) → Can only be accessed by seller
+   - api/v1/cows (GET) → Can only be accessed by buyer,seller & admin
+   - api/v1/cows/:id (Single GET) → Can only be accessed by buyer,seller & admin
+
+
+   - api/v1/cows/:id (PATCH) → Can only be accessed by the seller of the cow
+   - api/v1/cows/:id (DELETE) → Can only be accessed by the seller of the cow
+
+    `** Hints: You can use the findOne() method & add both seller's _id and the cow's _id to get specific documents. **`
+
+
+   #### Orders
+   - https://example.com/v1/orders (POST) →  Can only  be accessed  by the buyer
+     
+   - https://example.com/v1/orders (GET) →  Can be accessed only by the admin, by the **` specific buyer `** of this order
+      & by the **` specific seller `** of this order
+     
+    **` Hints: 
+      You have to retrieve the user's id and role from the access token. After that, you have to check using the user role if it's buyer or seller. 
+     if it is a buyer, you can use the order's _id and buyer's _id to get the orders
+     if it is a seller, you can use the order's _id and seller's _id to get the single orders.
+
+     Admin can get all the orders.
+     `**
+
+
+
+
+## Bonus Part :
+
+### Create Profile Module 
+
+You have to create my profile routes to get the user's information & update the information such as name, address, phoneNumber, and password. If the user gives a password in the request payload you have to hash the password before updating. 
+
+#### Get Profile Information
+
+Route:  /api/v1/users/my-profile (GET)
+
+Request Headers: "authorization": "Your access token"
+
+**` Hints: Retrieve the user's _id & role from your access token to get the specific profile information. `**
+
+Response: The specified user's profile information
+Response Sample Pattern:
+
+```json
+  {
+    "success": true, 
+    "statusCode":200,
+    "message": "User's information retrieved successfully",
+    "data": {
+      "name": {
+         "firstName": "Mr. Admin"
+         "lastName": "Bhai"
+      },
+     "phoneNumber":"01711111111",
+     "address": "Uganda",
+    }, 
+  }
+```
+
+
+#### Update Profile Information (Must be dynamic update)
+
+Route:  /api/v1/users/my-profile (PATCH)
+
+Request Headers: authorization: "Your access token"
+Request body:
+ ```json
+ {
+  "password":"mydreamwife",
+   "name":{
+      "firstName": "Mr. Update Password"
+      "lastName": "Bhai"
+    },
+  "phoneNumber":"01711111111",
+  "address": "Namibia",
+}
+```
+
+**` Hints: Retrieve the user's _id & role from your access token to update the specific profile information. `**
+
+Response: The specified user's updated profile information
+Response Sample Pattern:
+
+```json
+  {
+    "success": true, 
+    "statusCode":200,
+    "message": "User's information retrieved successfully",
+    "data": {
+      "name": {
+         "firstName": "Mr. Admin"
+         "lastName": "Bhai"
+      },
+     "phoneNumber":"01711111111",
+     "address": "Uganda",
+    }, 
+  }
+```
+
+## Get a Specific Order Route
+ 
+Route:   api/v1/orders/:id (GET)
+Request Param: order's _id
+
+**`Implement validation to check the user's _id from the token to check if it's the correct buyer of that specified order **`
+
+Response: The specified order
+Response Sample Pattern:
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "message": "Order information retrieved successfully",
+  "data": {
+    "cow": {
+      "_id": "60cd9f2e1e1d8e001f165d23",
+      "id": "60cd9f2e1e1d8e001f165d23",
+      "name": "Bella",
+      "age": 4,
+      "price": 5000,
+      "location": "Dhaka",
+      "breed": "Brahman",
+      "weight": 400,
+      "label": "for sale",
+      "category": "Beef",
+           "seller": {
+           "_id": "60cd9f2e1e1d8e001f165d21",
+           "id": "60cd9f2e1e1d8e001f165d21",
+           "role": "buyer",
+           "name": {
+          "firstName": "Kopa",
+          "lastName": "Samsu"
+           },
+         "phoneNumber": "01711111111",
+         "address": "Chattogram",
+         "budget": 30000,
+         "income": 0
+       }
+   }
+    },
+    "buyer": {
+      "_id": "60cd9f2e1e1d8e001f165d24",
+      "id": "60cd9f2e1e1d8e001f165d24",
+      "role": "buyer",
+      "name": {
+        "firstName": "Kopa",
+        "lastName": "Samsu"
+      },
+      "phoneNumber": "01711111111",
+      "address": "Chattogram",
+      "budget": 30000,
+      "income": 0
+    },
+}
+ ``` 
+
+### You have to implement an auth middleware  to verify the user's token and user role to give access to the following routes.
+
+  #### Orders
+   -  api/v1/orders/:id (GET) →  Can be accessed only by the admin, by the **` specific buyer `** of this order
+      & by the **` specific seller) `** of this order
+   
+     **` Hints: 
+     
+     You have to retrieve the user's id and role from the access token. After that, you have to check using the user role if it's buyer or seller. 
+     if it is a buyer, you can use the order's _id and buyer's _id to get the single order
+     if it is a seller, you can use the order's _id and seller's _id to get the single order
+
+      Admin can get all the orders.
+     `**
+  
+   #### My Profile 
+   - api/v1/users/my-profile (GET)  → Can be accessed only by the **` specific user (buyer, seller, admin) `** of the profile
+   - api/v1/users/my-profile (PATCH) → Can be accessed only by the **` specific user (buyer, seller, admin) `** of the profile
+
+
+### How to start:
+You need to reuse your previous assignment 3 for starting the assignment.
+
+Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. 
+Command  rm -rf .git
+
+Option 2: Download your assignment-3 as a zipped folder repository from GitHub.  
+
+option 3: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal
+Command  rm -rf .git
+
+### Deadline:
+- 60 Marks 11 Days ( Till 3rd July, Monday 11.59 PM  ) 
+- 50 Marks  1 Day     (   4th July, Tuesday 11.59 PM )
+
+ `** In order for your assignment to be evaluated, it is essential to have a minimum of 20 meaningful commits. Please note that unnecessary commits will not be considered as part of the evaluation process.**`
+
+
+
+
+## What to submit
+
+
+1. Your Github Private Repository Link
+2. Deployed Live Link (Vercel / Railway / Heroku or any other platform)
+   - `** Do not use a logger. It will not work on the free hosting platforms **`
+4. Must include all the routes into Readme.Md file.
+   - `** You must follow provided API Endpoints  for creating routes. Otherwise, you will lose your marks **`
+
+
+
+
+## You must follow the pattern given below to enlist your application routes in the readme.md file:
+
+  ### Live Link: https://example.com
+  ### Application Routes:
+  
+  ## Main part
+  
+   ### Auth
+   - Route: https://example.com/v1/auth/login (POST)
+   - Route: https://example.com/v1/auth/signup (POST) 
+   
+   ### User
+   - Route: https://example.com/v1/users (GET)  Include an id that is saved in your database
+   - Route: https://example.com/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
+   - Route: https://example.com/v1/users/6177a5b87d32123f08d2f5d4 (PATCH) Include an id that is saved in your database
+   - Route: https://example.com/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+
+   #### Cows
+   - Route: https://example.com/v1/cows (POST)
+   - Route: https://example.com/v1/cows (GET)
+   - Route: https://example.com/v1/cows/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
+   - Route: https://example.com/v1/cows/6177a5b87d32123f08d2f5d4 (PATCH) Include an id that is saved in your database
+   - Route: https://example.com/v1/cows/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+
+   #### Orders
+   - Route: https://example.com/v1/orders (POST)
+   - Route: https://example.com/v1/orders (GET)
+
+ ## Bonus Part
+
+#### Admin
+   -Route: https://example.com/v1/admins/create-admin (POST)
+
+#### My Profile
+- Route: https://example.com/api/v1/users/my-profile (GET)
+- Route: https://example.com/api/v1/users/my-profile (PATCH)
+
+#### Order:
+ - Route: https://example.com/v1/orders/6177a5b87d32123f08d2f5d4 (GET)
