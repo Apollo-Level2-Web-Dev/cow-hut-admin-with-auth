@@ -91,7 +91,7 @@ To log in, users must provide their phone number and password. The phone number 
 - The access token is sent in the response to the user.
 - The refresh token is set in the browser cookie.
 - The user's _id and role are included in both the access token and the refresh token.
-- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to generate a new access token if --the old one expires. The _id and role are used to identify the user and their permissions.
+- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to generate a new access token if --the old one expires. - - The _id and role are used to identify the user and their permissions.
 
 Route:  /api/v1/auth/login (POST)
 Request body:
@@ -116,6 +116,40 @@ Request body:
        }
   }
 ```
+
+###  Get Refresh Token
+
+To get a new access token, the user will send their refresh token to the authorization server. The authorization server will verify the refresh token and, if it is valid, generate a new access token and return it to the user. The authorization server will also set the refresh token in the user's browser cookie. The new access token will include the user's _id and role.
+
+##### Here is a more detailed explanation of each step:
+- The user sends a request to the authorization server with the refresh token as a parameter.
+- The authorization server validates the refresh token. This involves checking if the token is still valid and if it belongs to the user who is requesting the new - access token.
+- If the refresh token is valid, the authorization server generates a new access token and returns it to the user. The new access token will have a new expiration date, so the user will be able to use it to access protected resources for a longer period of time.
+- The authorization server also sets the refresh token in the user's browser cookie.
+-  The _id and role are used to identify the user and their permissions.
+
+Route:  /api/v1/auth/refresh-token (POST)
+
+Request Headers: "authorization": "Your refresh token"
+
+Response: The created access token for the user.
+ 
+ Response Sample Pattern:
+```json
+
+{
+    "success": true, 
+    "statusCode":200,
+    "message": "New access token generated successfully !",
+    "data": {
+       "accessToken":  "eyJhbGciOiJIUzI1NiICJ9.eyJ1c2V4NzIzMTcxNCwiZXhwIjoxNjg3MzE4MTE0fQ.Q7j8vtY9r1JeDK_zR6bYInlY", 
+       }
+  }
+```
+
+
+
+
 
 ### You need to implement an authentication middleware to verify the user's token and role before granting access to the following routes.
 
