@@ -10,13 +10,15 @@
 ### How to start:
 You need to reuse your previous assignment 3 for starting the assignment.
 
-Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. 
-Command  rm -rf .git
+###### Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. Add your new link. To check you can use `git remote -v`.
+Command:  rm -rf .git
 
-Option 2: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal
-Command  rm -rf .git
+###### Option 2: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal. Add your new link. To check you can use `git remote -v`.
+Command:  rm -rf .git
 
-Option 3: Clone assignment-3 from github private repo by going to the assignment-3 link and then clone that repo. use command line to change the `git remote add origin [your repo link]`. To check you can use `git remote -v`
+###### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to change the existing url `git remote set-url origin [your private repo link]`. To check you can use `git remote -v`.
+
+###### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to remove the existing url using git bash terminal " rm -rf .git"`. To check you can use `git remote -v`.
 
 #### Admin Model Sample :
 - _id
@@ -314,21 +316,21 @@ Response Sample Pattern:
  `** In order for your assignment to be evaluated, it is essential to have a minimum of 20 meaningful commits. Please note that unnecessary commits will not be considered as part of the evaluation process.**`
 
 
-
-
 ## What to submit
 
 
-1. Your Github Private Repository Link
-2. Deployed Live Link (Vercel / Railway / Heroku or any other platform)
+1. Submit only your Github Private Repository Link to our website.
+   
+3. Add Deployed Live Link into Readme.md file (Vercel / Railway / Heroku or any other platform)
    - `** Do not use a logger. It will not work on the free hosting platforms **`
 4. Must include all the routes into Readme.Md file.
    - `** You must follow provided API Endpoints  for creating routes. Otherwise, you will lose your marks **`
 
+### To continue to the next module, please submit only the link to your GitHub repository in the submission box. You can update your repository and  live link up until the deadline. As long as you include the live link in your README.md file, we will be able to easily evaluate your assignment.
 
 
 
-## You must follow the pattern given below to enlist your application routes in the readme.md file:
+## You must follow the pattern given below to enlist your application routes in the Readme. Md file:
 
   ### Live Link: https://example.com
   ### Application Routes:
