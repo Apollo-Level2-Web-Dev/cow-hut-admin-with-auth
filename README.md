@@ -83,8 +83,9 @@ To log in, admins must provide their phone number and password. The phone number
 - The access token is sent in the response to the user.
 - The refresh token is set in the browser cookie.
 - The admin's _id and role are included in both the access token and the refresh token.
-- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to
-- generate a new access token if --the old one expires. - - The _id and role are used to identify the admin and their permissions.
+- The access token is used to authenticate the user for subsequent requests.
+- The refresh token can be used to generate a new access token if the old one expires.
+- The _id and role are used to identify the admin and their permissions.
 
 
 Request body: 
@@ -129,7 +130,9 @@ To log in, users must provide their phone number and password. The phone number 
 - The access token is sent in the response to the user.
 - The refresh token is set in the browser cookie.
 - The user's _id and role are included in both the access token and the refresh token.
-- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to generate a new access token if --the old one expires. - - The _id and role are used to identify the user and their permissions.
+- The access token is used to authenticate the user for subsequent requests.
+- The refresh token can be used to generate a new access token if the old one expires.
+- The _id and role are used to identify the user and their permissions.
 
 Route:  /api/v1/auth/login (POST)
 Request body:
