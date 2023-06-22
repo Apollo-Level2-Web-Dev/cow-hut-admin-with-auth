@@ -10,15 +10,15 @@
 ### How to start:
 You need to reuse your previous assignment 3 for starting the assignment.
 
-###### Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. Add your new link. To check you can use `git remote -v`.
+#### Option 1: Copy your assignment-3 from your local computer, delete the .git folder, and start from there. You can delete it manually from the file manager or you can delete it by using git bash. Add your new link. To check you can use `git remote -v`.
 Command:  rm -rf .git
 
-###### Option 2: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal. Add your new link. To check you can use `git remote -v`.
+#### Option 2: You can clone assignment-3 from your private GitHub repository. After cloning you have to remove the existing .git file by pressing the command "rm -rf .git" using the git bash terminal. Add your new link. To check you can use `git remote -v`.
 Command:  rm -rf .git
 
-###### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to change the existing url `git remote set-url origin [your private repo link]`. To check you can use `git remote -v`.
+#### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to change the existing url `git remote set-url origin [your private repo link]`. To check you can use `git remote -v`.
 
-###### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to remove the existing url using git bash terminal " rm -rf .git"`. To check you can use `git remote -v`.
+#### Option 3: Clone assignment-3 from GitHub private repo by going to the assignment-3 link and then clone that repo. use the command line to remove the existing url using git bash terminal " rm -rf .git"`. To check you can use `git remote -v`.
 
 #### Admin Model Sample :
 - _id
