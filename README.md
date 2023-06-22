@@ -56,7 +56,7 @@ Response Sample Pattern:
 {
     "success": true, 
     "statusCode":200,
-    "message": "User's information retrieved successfully",
+    "message": "Admin created successfully",
     "data":  {
         "_id":"ObjectId(“6473c6a50c56d0d40b9bb6a3)",  
         "role": "admin",
@@ -69,6 +69,44 @@ Response Sample Pattern:
          }
      }
 
+```
+
+Route: /api/v1/admins/login (POST)
+
+To log in, admins must provide their phone number and password. The phone number must be unique in the database. If the login is successful, an access token will be sent in the response and a refresh token will be set in the browser cookie. The admin's _id and role will both be included in the tokens.
+
+##### Here is a more detailed explanation of each step:
+
+- The admins enter their phone number and password into the login form.
+- The server validates the phone number and password.
+- If the login is successful, the server generates an access token and a refresh token.
+- The access token is sent in the response to the user.
+- The refresh token is set in the browser cookie.
+- The admin's _id and role are included in both the access token and the refresh token.
+- The access token is used to authenticate the user for subsequent requests. The refresh token can be used to
+- generate a new access token if --the old one expires. - - The _id and role are used to identify the admin and their permissions.
+
+
+Request body: 
+ ```json
+ {
+   "phoneNumber":"01711111111",
+   "password": "amiadmin",
+}
+```
+Response: The created access token for the admin.
+ 
+ Response Sample Pattern:
+```json
+
+{
+    "success": true, 
+    "statusCode":200,
+    "message": "User logged in successfully",
+    "data": {
+       "accessToken":  "eyJhbGciOiJIUzI1NiICJ9.eyJ1c2V4NzIzMTcxNCwiZXhwIjoxNjg3MzE4MTE0fQ.Q7j8vtY9r1JeDK_zR6bYInlY", 
+       }
+  }
 ```
 
 
@@ -98,7 +136,7 @@ Request body:
  ```json
  {
   "phoneNumber":"01711111111",
-  "password":"abrakadabra",
+  "password":"amiuserasbuyerasseller",
 }
 ```
  
@@ -374,6 +412,7 @@ Response Sample Pattern:
    ### Auth
    - Route: https://example.com/api/v1/auth/login (POST)
    - Route: https://example.com/api/v1/auth/signup (POST)
+   - Route: /api/v1/admins/create-admin (POST)
    - Route:  https://example.com/api/v1/auth/refresh-token (POST)
    
    ### User
