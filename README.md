@@ -412,11 +412,14 @@ Response Sample Pattern:
   
   ## Main part
   
-   ### Auth
+   ### Auth (User)
    - Route: https://example.com/api/v1/auth/login (POST)
    - Route: https://example.com/api/v1/auth/signup (POST)
-   - Route: /api/v1/admins/create-admin (POST)
    - Route:  https://example.com/api/v1/auth/refresh-token (POST)
+
+   ### Auth (Admin)
+   - Route: https://example.com/api/v1/admins/create-admin (POST)
+   - Route: https://example.com/api/v1/admins/login (POST)
    
    ### User
    - Route: https://example.com/api/v1/users (GET)  Include an id that is saved in your database
