@@ -171,8 +171,6 @@ To get a new access token, the user will send their refresh token to the authori
 
 Route:  /api/v1/auth/refresh-token (POST)
 
-Request Headers: "authorization": "Your refresh token"
-
 Response: The created access token for the user.
  
  Response Sample Pattern:
