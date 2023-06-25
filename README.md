@@ -380,8 +380,8 @@ Response Sample Pattern:
    #### My Profile 
    - api/v1/users/my-profile (GET)  → Can be accessed only by the **` specific user (buyer, seller) `** of the profile
    - api/v1/users/my-profile (PATCH) → Can be accessed only by the **` specific user (buyer, seller) `** of the profile
-   - api/v1/users/my-profile (GET)  → Can be accessed only by the admin of the profile   (Optional Task)
-   - api/v1/users/my-profile (PATCH) → Can be accessed only by the admin of the profile (Optional Task)
+   - api/v1/admins/my-profile (GET)  → Can be accessed only by the admin of the profile   (Optional Task)
+   - api/v1/admins/my-profile (PATCH) → Can be accessed only by the admin of the profile (Optional Task)
  
 
 ### Deadline:
