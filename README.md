@@ -233,7 +233,7 @@ The authentication middleware will check the user's token and role against the d
 
 ## Bonus Part :
 
-### Create Profile Module 
+### Create Profile 
 
 You have to create my profile routes to get the user's information & update the information such as name, address, phoneNumber, and password. If the user gives a password in the request payload you have to hash the password before updating. 
 
